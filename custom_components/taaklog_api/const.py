@@ -27,4 +27,5 @@ DEFAULT_CA_URL = (
 )
 
 CA_DIRECTORY = "taaklog_api"
-CA_FILENAME = "certsign-webcag2.crt"
+CA_SOURCE_FILENAME = "certsign-webcag2.crt"
+CA_PEM_FILENAME = "certsign-webcag2.pem"

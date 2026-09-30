@@ -3,27 +3,7 @@
     "step": {
       "user": {
         "title": "Taaklog API instellen",
-        "description": "De integratie downloadt automatisch het benodigde certSIGN CA-certificaat en verstuurt daarna periodiek een Taaklog-melding.",
-        "data": {
-          "url": "Taaklog API URL",
-          "api_user": "API gebruiker",
-          "api_key": "API sleutel",
-          "naam": "Naam",
-          "soort": "Soort",
-          "resultaat": "Resultaat",
-          "server_name": "Servernaam",
-          "task_id": "Task ID",
-          "interval": "Interval in minuten",
-          "ca_url": "CA-certificaat URL"
-        }
-      }
-    }
-  },
-  "options": {
-    "step": {
-      "init": {
-        "title": "Taaklog API opties",
-        "description": "Wijzig de API-instellingen, interval of de URL van het CA-certificaat.",
+        "description": "Het CA-certificaat wordt automatisch gedownload. Zowel PEM als binair DER/CRT wordt ondersteund.",
         "data": {
           "url": "Taaklog API URL",
           "api_user": "API gebruiker",
