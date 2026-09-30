@@ -1,0 +1,7 @@
+{
+  "name": "Taaklog API",
+  "render_readme": true,
+  "domains": [
+    "taaklog_api"
+  ]
+}

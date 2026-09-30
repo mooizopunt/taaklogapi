@@ -1,0 +1,39 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Taaklog API instellen",
+        "description": "Stuur periodiek een Taaklog-melding via HTTP POST.",
+        "data": {
+          "url": "API URL",
+          "api_user": "API gebruiker",
+          "api_key": "API sleutel",
+          "naam": "Naam",
+          "soort": "Soort",
+          "resultaat": "Resultaat",
+          "server_name": "Servernaam",
+          "task_id": "Task ID",
+          "interval": "Interval in minuten"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Taaklog API opties",
+        "data": {
+          "url": "API URL",
+          "api_user": "API gebruiker",
+          "api_key": "API sleutel",
+          "naam": "Naam",
+          "soort": "Soort",
+          "resultaat": "Resultaat",
+          "server_name": "Servernaam",
+          "task_id": "Task ID",
+          "interval": "Interval in minuten"
+        }
+      }
+    }
+  }
+}
