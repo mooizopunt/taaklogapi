@@ -66,6 +66,8 @@ class TaaklogApiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def async_step_user(self, user_input=None):
         if user_input is not None:
+            user_input[CONF_URL] = user_input[CONF_URL].strip().rstrip("/")
+
             await self.async_set_unique_id(
                 f"{user_input[CONF_SERVER_NAME]}_{user_input[CONF_TASK_ID]}"
             )
@@ -93,6 +95,7 @@ class TaaklogApiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 class TaaklogApiOptionsFlow(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
         if user_input is not None:
+            user_input[CONF_URL] = user_input[CONF_URL].strip().rstrip("/")
             return self.async_create_entry(
                 title="",
                 data=user_input,

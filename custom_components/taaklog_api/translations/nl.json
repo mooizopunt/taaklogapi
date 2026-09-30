@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Taaklog API instellen",
-        "description": "Het CA-certificaat wordt automatisch gedownload. Zowel PEM als binair DER/CRT wordt ondersteund.",
+        "description": "De API-URL wordt automatisch genormaliseerd zonder afsluitende slash. Redirects worden niet gevolgd.",
         "data": {
           "url": "Taaklog API URL",
           "api_user": "API gebruiker",

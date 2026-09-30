@@ -1,21 +1,11 @@
-# Taaklog API v1.1.1
+# Taaklog API v1.1.2
 
-Deze versie ondersteunt het certSIGN intermediate certificaat zowel als:
+Belangrijkste wijziging:
 
-- PEM
-- binair DER / `.crt`
+- `/taaklogapi/` wordt automatisch genormaliseerd naar `/taaklogapi`
+- redirects worden niet gevolgd
+- de daadwerkelijk gebruikte API-URL wordt gelogd
+- sensorattribuut `api_url` toont de gebruikte URL
 
-Het bestand op GitHub wordt als `application/octet-stream` aangeboden.
-Daarom wordt het lokaal opgeslagen als:
-
-`/config/taaklog_api/certsign-webcag2.crt`
-
-en indien nodig automatisch geconverteerd naar:
-
-`/config/taaklog_api/certsign-webcag2.pem`
-
-De PEM-versie wordt vervolgens toegevoegd aan een eigen SSL-context voor de
-Taaklog API-verbinding.
-
-SSL-verificatie en hostnamecontrole blijven actief.
-Er wordt geen `ssl=False` gebruikt.
+Dit is nodig omdat de Layer7 API Gateway `/taaklogapi` en
+`/taaklogapi/` als verschillende services behandelt.

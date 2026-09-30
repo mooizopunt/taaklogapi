@@ -86,12 +86,7 @@ async def _async_download_ca_certificate(
             "Gedownload CA-certificaat is leeg"
         )
 
-    await _async_write_bytes(
-        hass,
-        source_path,
-        certificate,
-    )
-
+    await _async_write_bytes(hass, source_path, certificate)
     return certificate
 
 
@@ -100,10 +95,9 @@ async def _async_convert_certificate_to_pem(
     certificate: bytes,
     pem_path: Path,
 ) -> None:
-    """Accept PEM or DER and store a normalized PEM certificate."""
+    """Accept PEM or DER and store normalized PEM."""
 
     def _convert() -> bytes:
-        # Already PEM?
         if b"-----BEGIN CERTIFICATE-----" in certificate:
             try:
                 text = certificate.decode("ascii")
@@ -112,13 +106,10 @@ async def _async_convert_certificate_to_pem(
                 raise ValueError(
                     f"PEM-certificaat is ongeldig: {err}"
                 ) from err
-
             return certificate
 
-        # Otherwise assume binary DER.
         try:
             pem_text = ssl.DER_cert_to_PEM_cert(certificate)
-            # Validate the generated PEM as well.
             ssl.PEM_cert_to_DER_cert(pem_text)
         except (ValueError, ssl.SSLError) as err:
             raise ValueError(
@@ -132,18 +123,14 @@ async def _async_convert_certificate_to_pem(
     except ValueError as err:
         raise ConfigEntryNotReady(str(err)) from err
 
-    await _async_write_bytes(
-        hass,
-        pem_path,
-        pem_bytes,
-    )
+    await _async_write_bytes(hass, pem_path, pem_bytes)
 
 
 async def _async_create_ssl_context(
     hass: HomeAssistant,
     pem_path: Path,
 ) -> ssl.SSLContext:
-    """Create a secure SSL context with the additional CA."""
+    """Create SSL context with the additional CA."""
 
     def _create() -> ssl.SSLContext:
         context = ssl.create_default_context()
@@ -190,6 +177,10 @@ async def async_setup_entry(
         pem_path,
     )
 
+    # Layer7 treats /taaklogapi and /taaklogapi/ as different services.
+    # Always normalize to the URL without a trailing slash.
+    api_url = data[CONF_URL].strip().rstrip("/")
+
     async def async_post_taaklog():
         """Send one Taaklog heartbeat."""
 
@@ -206,16 +197,32 @@ async def async_setup_entry(
             "TaskId": int(data[CONF_TASK_ID]),
         }
 
+        _LOGGER.info(
+            "Taaklog POST naar %s - TaskId=%s Server=%s",
+            api_url,
+            body["TaskId"],
+            body["ServerName"],
+        )
+
         try:
             async with session.post(
-                data[CONF_URL],
+                api_url,
                 headers=headers,
                 json=body,
                 ssl=ssl_context,
+                allow_redirects=False,
                 timeout=aiohttp.ClientTimeout(total=30),
             ) as response:
 
                 response_text = await response.text()
+
+                if response.status in (301, 302, 303, 307, 308):
+                    location = response.headers.get("Location", "")
+                    raise UpdateFailed(
+                        f"API geeft redirect HTTP {response.status} "
+                        f"naar '{location}'. "
+                        f"Aangeroepen URL: {api_url}"
+                    )
 
                 if not 200 <= response.status < 300:
                     raise UpdateFailed(
@@ -223,11 +230,19 @@ async def async_setup_entry(
                         f"{response_text[:500]}"
                     )
 
+                _LOGGER.info(
+                    "Taaklog API OK: HTTP %s - TaskId=%s Server=%s",
+                    response.status,
+                    body["TaskId"],
+                    body["ServerName"],
+                )
+
                 return {
                     "status": "OK",
                     "status_code": response.status,
                     "response": response_text[:1000],
                     "request": body,
+                    "api_url": api_url,
                     "ca_source_file": str(source_path),
                     "ca_pem_file": str(pem_path),
                     "ca_url": ca_url,

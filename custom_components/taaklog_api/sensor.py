@@ -32,6 +32,7 @@ class TaaklogApiStatusSensor(CoordinatorEntity, SensorEntity):
             "http_status": data.get("status_code"),
             "response": data.get("response"),
             "request": data.get("request"),
+            "api_url": data.get("api_url"),
             "ca_source_file": data.get("ca_source_file"),
             "ca_pem_file": data.get("ca_pem_file"),
             "ca_url": data.get("ca_url"),

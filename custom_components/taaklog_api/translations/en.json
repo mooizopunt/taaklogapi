@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Configure Taaklog API",
-        "description": "The CA certificate is downloaded automatically. Both PEM and binary DER/CRT formats are supported.",
+        "description": "The API URL is normalized without a trailing slash. Redirects are not followed.",
         "data": {
           "url": "Taaklog API URL",
           "api_user": "API user",
