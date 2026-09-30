@@ -3,9 +3,9 @@
     "step": {
       "user": {
         "title": "Taaklog API instellen",
-        "description": "Stuurt periodiek een POST naar de Taaklog API.",
+        "description": "De integratie downloadt automatisch het benodigde certSIGN CA-certificaat en verstuurt daarna periodiek een Taaklog-melding.",
         "data": {
-          "url": "API URL",
+          "url": "Taaklog API URL",
           "api_user": "API gebruiker",
           "api_key": "API sleutel",
           "naam": "Naam",
@@ -13,7 +13,28 @@
           "resultaat": "Resultaat",
           "server_name": "Servernaam",
           "task_id": "Task ID",
-          "interval": "Interval in minuten"
+          "interval": "Interval in minuten",
+          "ca_url": "CA-certificaat URL"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Taaklog API opties",
+        "description": "Wijzig de API-instellingen, interval of de URL van het CA-certificaat.",
+        "data": {
+          "url": "Taaklog API URL",
+          "api_user": "API gebruiker",
+          "api_key": "API sleutel",
+          "naam": "Naam",
+          "soort": "Soort",
+          "resultaat": "Resultaat",
+          "server_name": "Servernaam",
+          "task_id": "Task ID",
+          "interval": "Interval in minuten",
+          "ca_url": "CA-certificaat URL"
         }
       }
     }

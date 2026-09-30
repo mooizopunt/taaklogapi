@@ -2,18 +2,19 @@
   "config": {
     "step": {
       "user": {
-        "title": "Taaklog API instellen",
-        "description": "Stuurt periodiek een POST naar de Taaklog API.",
+        "title": "Configure Taaklog API",
+        "description": "The integration automatically downloads the required certSIGN CA certificate and periodically posts a Taaklog heartbeat.",
         "data": {
-          "url": "API URL",
-          "api_user": "API gebruiker",
-          "api_key": "API sleutel",
-          "naam": "Naam",
-          "soort": "Soort",
-          "resultaat": "Resultaat",
-          "server_name": "Servernaam",
+          "url": "Taaklog API URL",
+          "api_user": "API user",
+          "api_key": "API key",
+          "naam": "Name",
+          "soort": "Type",
+          "resultaat": "Result",
+          "server_name": "Server name",
           "task_id": "Task ID",
-          "interval": "Interval in minuten"
+          "interval": "Interval in minutes",
+          "ca_url": "CA certificate URL"
         }
       }
     }

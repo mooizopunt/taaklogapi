@@ -1,10 +1,12 @@
 {
   "domain": "taaklog_api",
   "name": "Taaklog API",
-  "version": "1.0.1",
-  "documentation": "https://github.com/",
-  "issue_tracker": "https://github.com/",
-  "codeowners": [],
+  "version": "1.1.0",
+  "documentation": "https://github.com/mooizopunt/taaklogapi",
+  "issue_tracker": "https://github.com/mooizopunt/taaklogapi/issues",
+  "codeowners": [
+    "@mooizopunt"
+  ],
   "config_flow": true,
   "integration_type": "service",
   "iot_class": "cloud_polling",
