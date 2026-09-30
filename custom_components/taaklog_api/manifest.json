@@ -1,0 +1,12 @@
+{
+  "domain": "taaklog_api",
+  "name": "Taaklog API",
+  "version": "1.0.1",
+  "documentation": "https://github.com/",
+  "issue_tracker": "https://github.com/",
+  "codeowners": [],
+  "config_flow": true,
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "requirements": []
+}

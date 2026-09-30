@@ -1,71 +1,25 @@
-# Taaklog API voor Home Assistant / HACS
+# Taaklog API
 
-Deze custom integration stuurt periodiek een JSON POST naar de Taaklog API.
+De root van de `main` branch moet direct deze structuur bevatten:
 
-Standaard voorbeeld:
-
-```json
-{
-  "Naam": "Controle website",
-  "Soort": "Webcontrole",
-  "Resultaat": "OK",
-  "ServerName": "VNLAPPL060",
-  "TaskId": 159
-}
+```text
+hacs.json
+README.md
+custom_components/
+└── taaklog_api/
+    ├── __init__.py
+    ├── config_flow.py
+    ├── const.py
+    ├── manifest.json
+    ├── sensor.py
+    ├── strings.json
+    ├── brand/
+    │   └── icon.png
+    └── translations/
+        ├── en.json
+        └── nl.json
 ```
 
-Headers:
+Belangrijk: zet niet eerst nog een extra map boven `custom_components`.
 
-- `X-API-User`
-- `X-API-Key`
-
-## Installatie handmatig
-
-Kopieer:
-
-`custom_components/taaklog_api`
-
-naar:
-
-`/config/custom_components/taaklog_api`
-
-Herstart Home Assistant.
-
-Ga daarna naar:
-
-**Instellingen > Apparaten & diensten > Integratie toevoegen > Taaklog API**
-
-Vul in:
-
-- URL: `https://website.venlo.nl/taaklogapi`
-- API gebruiker: bijvoorbeeld `mijnapp`
-- API sleutel
-- Naam
-- Soort
-- Resultaat
-- ServerName
-- TaskId
-- Interval: `5`
-
-## Installatie via HACS
-
-Plaats deze repository in GitHub en voeg hem in HACS toe als aangepaste repository:
-
-**HACS > Integraties > drie puntjes > Aangepaste repositories**
-
-Type:
-
-`Integration`
-
-Daarna kan de integratie via HACS worden geïnstalleerd.
-
-## Gedrag
-
-De API wordt direct bij laden één keer aangeroepen en vervolgens volgens het ingestelde interval.
-Standaard is dit 5 minuten.
-
-Er wordt een sensor aangemaakt:
-
-`sensor.taaklog_api_status`
-
-met status `OK` of `Fout`, plus attributen met HTTP status, response en request.
+De integratie doet direct bij laden een POST en daarna iedere 5 minuten.
