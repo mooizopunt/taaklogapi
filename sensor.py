@@ -32,7 +32,7 @@ class TaaklogApiStatusSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         if not self.coordinator.last_update_success:
-            return "Fout"
+            return "Controle"
         return "OK"
 
     @property
